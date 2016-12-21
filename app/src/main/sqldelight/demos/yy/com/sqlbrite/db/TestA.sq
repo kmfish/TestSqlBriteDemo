@@ -1,0 +1,8 @@
+CREATE TABLE Test_A (
+    uid INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+
+select_all:
+select * from Test_A;

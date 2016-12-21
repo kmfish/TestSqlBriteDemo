@@ -1,0 +1,10 @@
+CREATE TABLE Test_B (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    uid INTEGER NOT NULL
+);
+
+
+select_all:
+select Test_B.* from Test_B, Test_A
+where Test_A.uid=Test_B.uid and Test_B.uid in ?;
