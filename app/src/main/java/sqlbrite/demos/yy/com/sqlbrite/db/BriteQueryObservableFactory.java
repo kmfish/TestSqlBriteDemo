@@ -132,21 +132,21 @@ public class BriteQueryObservableFactory {
 
     @Nullable
     private StackTraceElement getLastObservableStackTraceElement() {
-//        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
-//        final int len = elements.length;
-//
-//        int lastObservableStackTrackElementIndex = -1;
-//        for (int i = 0; i < len; i++) {
-//            StackTraceElement element = elements[i];
-//            if (element.getClassName().equals(getClass().getName()) && element.getMethodName().equals("createQuery")) {
-//                lastObservableStackTrackElementIndex = i + 1;
-//                break;
-//            }
-//        }
-//
-//        if (lastObservableStackTrackElementIndex < elements.length && lastObservableStackTrackElementIndex >= 0) {
-//            return elements[lastObservableStackTrackElementIndex];
-//        }
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+        final int len = elements.length;
+
+        int lastObservableStackTrackElementIndex = -1;
+        for (int i = 0; i < len; i++) {
+            StackTraceElement element = elements[i];
+            if (element.getClassName().equals(getClass().getName()) && element.getMethodName().equals("createQuery")) {
+                lastObservableStackTrackElementIndex = i + 1;
+                break;
+            }
+        }
+
+        if (lastObservableStackTrackElementIndex < elements.length && lastObservableStackTrackElementIndex >= 0) {
+            return elements[lastObservableStackTrackElementIndex];
+        }
 
         return null;
     }
