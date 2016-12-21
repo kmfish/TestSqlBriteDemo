@@ -40,7 +40,9 @@ private QueryObservable getQueryC(String params) {
 ```
 上述代码段中的queryA、queryB、queryC均是使用SqlBrite的createQuery接口返回的QueryObservable，所以它们均具有一直订阅着自己关注表的变更的特性（假设它们分别查询了A、B、C三张表）。咋看之下，这个流程似乎也没什么问题，我们的代码一开始也就是这样写的了。但后来遇到些数据错乱的情况时，才定位到这个问题。
 设想这样的流程：
+
 1. 当完成对这个事件流的订阅后，A表发生了1次变化，则queryA会发射1个数据到流里，那么接下来的getQueryB、getQueryC 方法均会执行1次，又由于createQuery每次都会创建QueryOBservable的实例，所以getQueryB执行1次，就创建了1个QueryObservableB的实例了，getQueryC同理，然后subcriber处会接收到1次数据。
+
 2. 经过1之后，此时B表发生 了1次变化，那么getQueryC会执行一次，subscriber会收到1次事件，真的是这样吗？结论肯定是NO了。实际测试发现，此时subcriber会收到2次数据。
 
 # 追根溯源
