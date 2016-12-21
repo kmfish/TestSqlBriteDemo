@@ -4,7 +4,7 @@
 自定义的词汇含义：
  - 订阅链、事件流： 这是指任意个Observable组合后，最终被某个Subscriber订阅时，所确定的一条订阅关系链。
 如：　
-```
+```java
  ObservableA.flatMap(ObservableB)
                         .flatMap(ObservableC)
                        .subscribe(new Subscriber<T>() {
@@ -46,7 +46,7 @@ private QueryObservable getQueryC(String params) {
 # 追根溯源
 有点摸不着头脑了吧，我们再回顾之前的流程，会发现getQueryB 方法在整个流程中执行了2遍，说明创建了两个QueryObservableB的实例。当B表变化时，看起来像是这两个queryB的实例接收到了SqlBrite发射的数据了。
 那究竟这两个queryB被谁订阅了呢？这就需要去看下RxJava的源码了，queryA和 getQueryB 是使用了flatMap操作符来连接的，所以我们看一下flatMap的实现：
-```
+```java
 public final <R> Observable<R> flatMap(Func1<? super T, ? extends Observable<? extends R>> func) {
 	if (getClass() == ScalarSynchronousObservable.class) {
 		return ((ScalarSynchronousObservable<T>)this).scalarFlatMap(func);
