@@ -31,11 +31,11 @@ queryA.flatMap(new Func1<String, Observable<String>>() {
 });
 
 private QueryObservable getQueryB(String params) {
-	return factory.createQuery(....);
+	return britedatabase.createQuery(....);
 }
 
 private QueryObservable getQueryC(String params) {
-	return factory.createQuery(....);
+	return britedatabase.createQuery(....);
 }
 ```
 上述代码段中的queryA、queryB、queryC均是使用SqlBrite的createQuery接口返回的QueryObservable，所以它们均具有一直订阅着自己关注表的变更的特性（假设它们分别查询了A、B、C三张表）。咋看之下，这个流程似乎也没什么问题，我们的代码一开始也就是这样写的了。但后来遇到些数据错乱的情况时，才定位到这个问题。
